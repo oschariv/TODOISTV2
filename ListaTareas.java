@@ -26,4 +26,33 @@ public class ListaTareas
         Tarea nuevaTarea = new Tarea(descripcion);
         listaDeTareas.add(nuevaTarea);
     }
+    
+    /**
+     * Muestra todas las tareas existentes (usando un bucle WHILE)
+     * y que esten numerdadas.
+     */
+    public void mostrarTareasNumeradas()
+    {
+        int contador = 0;		
+		while (contador < listaDeTareas.size()) {
+			String hecha = "";
+            if (listaDeTareas.get(contador).mostrarFinalizada()) {
+				hecha = "HECHO. ";
+			}
+			System.out.println((contador +1) + ". " + hecha 
+								+ listaDeTareas.get(contador).mostrarTarea());
+			contador++;
+        }
+    }
+	
+	/**
+     * Metodo que establece tareas completadas o  sin completar.
+     * Metodo a prueba de errores.
+     * numeroTarea es el numero de la tarea empezando en uno.
+     */
+    public void marcarComoCompletada(int numeroTarea){
+        if (numeroTarea > 0 && numeroTarea <= listaDeTareas.size()){
+            listaDeTareas.get(numeroTarea - 1).marcarFinalizada();
+        }
+    }
 }

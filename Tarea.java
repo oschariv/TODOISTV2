@@ -19,16 +19,17 @@ public class Tarea
         descripcion = nombre;
         finalizada = false;
     }
-
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
-    //public int sampleMethod(int y)
-    //{
-        // put your code here
-        //return x + y;
-    //}
+    
+    public String mostrarTarea(){
+        return descripcion;
+    }
+	
+	public boolean mostrarFinalizada(){
+		return finalizada;
+	}
+	
+	public void marcarFinalizada(){
+		finalizada = true;
+	}
+	
 }

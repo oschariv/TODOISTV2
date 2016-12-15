@@ -33,7 +33,7 @@ public class ListaTareasTest
         Tareas1 = new ListaTareas();
         Tareas1.addTarea("hacer la cama");
         Tareas1.addTarea("estudiar programacion");
-        Tareas1.addTarea("Comprar pan");
+        Tareas1.addTarea("comprar pan");
         Tareas1.addTarea("hacer comida");
     }
 
