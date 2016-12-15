@@ -33,19 +33,19 @@ public class ListaTareas
      */
     public void mostrarTareasNumeradas()
     {
-        int contador = 0;		
-		while (contador < listaDeTareas.size()) {
-			String hecha = "";
+        int contador = 0;       
+        while (contador < listaDeTareas.size()) {
+            String hecha = "";
             if (listaDeTareas.get(contador).mostrarFinalizada()) {
-				hecha = "HECHO. ";
-			}
-			System.out.println((contador +1) + ". " + hecha 
-								+ listaDeTareas.get(contador).mostrarTarea());
-			contador++;
+                hecha = "HECHO. ";
+            }
+            System.out.println((contador +1) + ". " + hecha 
+                                + listaDeTareas.get(contador).mostrarTarea());
+            contador++;
         }
     }
-	
-	/**
+    
+    /**
      * Metodo que establece tareas completadas o  sin completar.
      * Metodo a prueba de errores.
      * numeroTarea es el numero de la tarea empezando en uno.
@@ -55,4 +55,28 @@ public class ListaTareas
             listaDeTareas.get(numeroTarea - 1).marcarFinalizada();
         }
     }
+
+    /**
+     * Muestra todas las tareas (una por linea) que contengan un determinado texto
+     * pasado como parametro con su numeracion asociada correcta. si no hay ninguna
+     * tarea que contenga el texto indicado, se muestra ¡un mensaje de error!.
+     * Si hay tareas coincidentes, tras la lista, se muestra el numero 
+     * de tareas coincidentes.
+     */
+        
+    public void mostrarTareasCoincidentes(String textoBuscar){
+        int contador = 1;
+        while(contador > 0 && contador <= listaDeTareas.size()){
+            if (listaDeTareas.get(contador - 1).mostrarTarea().contains(textoBuscar)){
+                String hecha = "";
+                if (listaDeTareas.get(contador - 1).mostrarFinalizada()) {
+                    hecha = "HECHO. ";
+                }
+                System.out.println((contador) + ". " + hecha 
+                                + listaDeTareas.get(contador - 1).mostrarTarea());
+            }
+            contador++;
+        }
+    }
+
 }

@@ -12,7 +12,7 @@ public class Tarea
     private boolean finalizada;
 
     /**
-     * Constructor for objects of class Tarea
+     * Constructor para objetos de la clase Tarea
      */
     public Tarea(String nombre)
     {
@@ -31,5 +31,6 @@ public class Tarea
 	public void marcarFinalizada(){
 		finalizada = true;
 	}
+	
 	
 }
