@@ -78,5 +78,14 @@ public class ListaTareas
             contador++;
         }
     }
-
+    
+    /**
+     * Metodo que permite borrar tareas de forma permanente.
+     * La posicion se da a partir del 1
+     */
+    public void removerTarea(int posicion){
+        if (posicion > 0 && posicion <= listaDeTareas.size()) {
+            listaDeTareas.remove(posicion -1);
+        }
+    }
 }
