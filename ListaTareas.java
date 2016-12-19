@@ -35,12 +35,8 @@ public class ListaTareas
     {
         int contador = 0;       
         while (contador < listaDeTareas.size()) {
-            String hecha = "";
-            if (listaDeTareas.get(contador).mostrarFinalizada()) {
-                hecha = "HECHO. ";
-            }
-            System.out.println((contador +1) + ". " + hecha 
-                                + listaDeTareas.get(contador).mostrarTarea());
+            System.out.println((contador +1) + ". "
+                                + listaDeTareas.get(contador).toString());
             contador++;
         }
     }
@@ -68,12 +64,8 @@ public class ListaTareas
         int contador = 1;
         while(contador > 0 && contador <= listaDeTareas.size()){
             if (listaDeTareas.get(contador - 1).mostrarTarea().contains(textoBuscar)){
-                String hecha = "";
-                if (listaDeTareas.get(contador - 1).mostrarFinalizada()) {
-                    hecha = "HECHO. ";
-                }
-                System.out.println((contador) + ". " + hecha 
-                                + listaDeTareas.get(contador - 1).mostrarTarea());
+                System.out.println((contador) + ". "
+                                + listaDeTareas.get(contador - 1).toString());
             }
             contador++;
         }
@@ -87,5 +79,14 @@ public class ListaTareas
         if (posicion > 0 && posicion <= listaDeTareas.size()) {
             listaDeTareas.remove(posicion -1);
         }
+    }
+    
+    /**
+     * Metodo que nos permite establecer la prioridad a una tarea.
+     * 0 Prioridad baja.
+     * 5 Prioridad alta.
+     */
+    public void cambiarPrioridad(int posicion, int prioridad){
+        listaDeTareas.get(posicion - 1).setPrioridad(prioridad);
     }
 }
