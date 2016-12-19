@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.time.LocalDate;
 /**
  * Write a description of class ListaTareas here.
  * 
@@ -87,6 +88,12 @@ public class ListaTareas
      * 5 Prioridad alta.
      */
     public void cambiarPrioridad(int posicion, int prioridad){
-        listaDeTareas.get(posicion - 1).setPrioridad(prioridad);
+        if (posicion > 0 && posicion <= listaDeTareas.size()) {
+            listaDeTareas.get(posicion - 1).setPrioridad(prioridad);
+        }
+    }
+    
+    public void establecerFechaVencimiento(int posicion, int anio, int mes, int dia){
+        listaDeTareas.get(posicion - 1).setFechaVencimiento(anio, mes, dia);
     }
 }

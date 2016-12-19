@@ -1,4 +1,4 @@
-
+import java.time.LocalDate;
 /**
  * Write a description of class Tarea here.
  * 
@@ -11,6 +11,7 @@ public class Tarea
     private String descripcion;
     private boolean finalizada;
     private int prioridad;
+    private LocalDate fechaTomada;
 
     /**
      * Constructor para objetos de la clase Tarea
@@ -20,6 +21,7 @@ public class Tarea
         descripcion = nombre;
         finalizada = false;
         prioridad = 0;
+        fechaTomada = null;
     }
     
     public String mostrarTarea(){
@@ -42,9 +44,9 @@ public class Tarea
         String prioridadADevolver = "";
         if (finalizada){
             textoADevolver = textoADevolver + "HECHA. ";
-        }
-        prioridadADevolver =  "(Prioridad " + prioridad + ")";        
-        textoADevolver = textoADevolver + prioridadADevolver + descripcion;
+        }      
+        textoADevolver = textoADevolver + "(Prioridad " + prioridad + ")"
+                        + descripcion;
         return textoADevolver;
     }
     
@@ -56,5 +58,24 @@ public class Tarea
         if(prioridad >= 0 && prioridad <= 5){
             this.prioridad = prioridad;
         }
+    }
+       
+    /**
+     * Obtener fecha de vencimiento.
+     */
+    public void setFechaVencimiento(int anio, int mes, int dia){
+       fechaTomada = LocalDate.of(anio, mes, dia);
+    }
+    
+    public String fechaToString(){
+        String fechaADevolver = "";
+        
+        String getDia = "" + fechaTomada.getDayOfMonth();
+        String getMes = "" + fechaTomada.getMonthValue();
+        String getAnio = "" + fechaTomada.getYear();
+        
+        fechaADevolver = getDia + "/" + getMes + "/" + getAnio;
+        
+        return fechaADevolver;
     }
 }
