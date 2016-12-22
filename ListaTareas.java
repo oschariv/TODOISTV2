@@ -94,6 +94,14 @@ public class ListaTareas
     }
     
     public void establecerFechaVencimiento(int posicion, int anio, int mes, int dia){
-        listaDeTareas.get(posicion - 1).setFechaVencimiento(anio, mes, dia);
+        if (posicion > 0 && posicion <= listaDeTareas.size()) {
+            listaDeTareas.get(posicion - 1).setFechaVencimiento(anio, mes, dia);
+        }
     }
 }
+
+
+
+
+
+
