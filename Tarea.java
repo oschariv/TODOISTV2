@@ -69,9 +69,17 @@ public class Tarea
     }
        
     /**
-     * Obtener fecha de vencimiento.
+     * Establecer fecha de vencimiento.
      */
     public void setFechaVencimiento(int anio, int mes, int dia){
        fechaVencimiento = LocalDate.of(anio, mes, dia);
+    }
+    
+    public LocalDate getFechaVencimiento(){
+        return fechaVencimiento;
+    }
+    
+    public int getPrioridad(){
+        return prioridad;
     }
 }

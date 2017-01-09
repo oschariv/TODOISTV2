@@ -98,10 +98,52 @@ public class ListaTareas
             listaDeTareas.get(posicion - 1).setFechaVencimiento(anio, mes, dia);
         }
     }
+    
+    /**
+     * Metodo que muestra por pantalla si hay tareas para vencer en la fecha actual
+     */
+    public void mostrarHoy(){    
+        int posicion = 1;
+        LocalDate hoy = LocalDate.now();
+        for (Tarea tarea : listaDeTareas){
+            if (tarea.getFechaVencimiento() != null){
+                if (tarea.getFechaVencimiento().isEqual(hoy)) {
+                    System.out.println(posicion + ". " + tarea.toString());
+                    posicion++;
+                }
+            }
+        }        
+    }
+    
+    /**
+     * Metodo que muestra las tareas ya vencidas antes de la fecha de hoy
+     */
+    public void mostrarVencidas(){
+        int posicion = 1;
+        LocalDate hoy = LocalDate.now();
+        for (Tarea tarea : listaDeTareas){
+            if (tarea.getFechaVencimiento() != null){
+                if (tarea.getFechaVencimiento().isBefore(hoy)) {
+                    System.out.println(posicion + ". " + tarea.toString());
+                    posicion++;
+                }
+            }
+        }
+    }
+    
+    /**
+     * Metodo que muestra la tarea con la más alta prioridad. 
+     * Si hay varias empatadas, debe mostrar todas
+     */
+    public void verTareaMasPrioritaria(){
+        int posicion = 1;
+        int contadorPrioridad = 5;
+        for (Tarea tarea : listaDeTareas){
+            if (tarea.getPrioridad() == contadorPrioridad){
+                System.out.println(posicion + ". " + tarea.toString());
+                posicion++;                
+            }
+            contadorPrioridad--;
+        }
+    }
 }
-
-
-
-
-
-
