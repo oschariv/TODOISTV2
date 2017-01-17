@@ -8,8 +8,10 @@ import java.time.LocalDate;
  */
 public class ListaTareas
 {
-    // instance variables 
+    // Crea un array a partir de la clase tarea.
     private ArrayList<Tarea> listaDeTareas;
+    // Almacena el identificador de la tarea en la lista de tareas.
+    private int id;
 
     /**
      * Constructor for objects of class ListaTareas
@@ -17,15 +19,19 @@ public class ListaTareas
     public ListaTareas()
     {
         listaDeTareas = new ArrayList<Tarea>();
+        id = 0;        
     }
 
     /**
      * Metodo que permite añadir una nueva tarea.
      */
     public void addTarea(String descripcion)
-    {
-        Tarea nuevaTarea = new Tarea(descripcion);
-        listaDeTareas.add(nuevaTarea);
+    {        
+        if (id < 89) {
+            Tarea nuevaTarea = new Tarea(id, descripcion);
+            listaDeTareas.add(nuevaTarea);
+            id++;
+        }     
     }
     
     /**
@@ -36,20 +42,26 @@ public class ListaTareas
     {
         int contador = 0;       
         while (contador < listaDeTareas.size()) {
-            System.out.println((contador +1) + ". "
-                                + listaDeTareas.get(contador).toString());
+            System.out.println(listaDeTareas.get(contador).toString());
             contador++;
         }
     }
     
     /**
+     * 
+     */
+    public boolean esValidoElIndice(int id){
+        return id >= 0 && id < this.id;
+    }
+    
+    /**
      * Metodo que establece tareas completadas o  sin completar.
      * Metodo a prueba de errores.
-     * numeroTarea es el numero de la tarea empezando en uno.
+     * El id de las tarea empieza en cero hasta el 89.
      */
-    public void marcarComoCompletada(int numeroTarea){
-        if (numeroTarea > 0 && numeroTarea <= listaDeTareas.size()){
-            listaDeTareas.get(numeroTarea - 1).marcarFinalizada();
+    public void marcarComoCompletada(int id){
+        if (esValidoElIndice(id)){
+            listaDeTareas.get(id).marcarFinalizada();
         }
     }
 
@@ -76,9 +88,9 @@ public class ListaTareas
      * Metodo que permite borrar tareas de forma permanente.
      * La posicion se da a partir del 1
      */
-    public void removerTarea(int posicion){
-        if (posicion > 0 && posicion <= listaDeTareas.size()) {
-            listaDeTareas.remove(posicion -1);
+    public void removerTarea(int id){
+        if (esValidoElIndice(id)) {
+            listaDeTareas.remove(id);
         }
     }
     
@@ -87,15 +99,15 @@ public class ListaTareas
      * 0 Prioridad baja.
      * 5 Prioridad alta.
      */
-    public void cambiarPrioridad(int posicion, int prioridad){
-        if (posicion > 0 && posicion <= listaDeTareas.size()) {
-            listaDeTareas.get(posicion - 1).setPrioridad(prioridad);
+    public void cambiarPrioridad(int id, int prioridad){
+        if (esValidoElIndice(id)) {
+            listaDeTareas.get(id).setPrioridad(prioridad);
         }
     }
     
-    public void establecerFechaVencimiento(int posicion, int anio, int mes, int dia){
-        if (posicion > 0 && posicion <= listaDeTareas.size()) {
-            listaDeTareas.get(posicion - 1).setFechaVencimiento(anio, mes, dia);
+    public void establecerFechaVencimiento(int id, int anio, int mes, int dia){
+        if (esValidoElIndice(id)) {
+            listaDeTareas.get(id).setFechaVencimiento(anio, mes, dia);
         }
     }
     
@@ -108,7 +120,7 @@ public class ListaTareas
         for (Tarea tarea : listaDeTareas){
             if (tarea.getFechaVencimiento() != null){
                 if (tarea.getFechaVencimiento().isEqual(hoy)) {
-                    System.out.println(posicion + ". " + tarea.toString());
+                    System.out.println(tarea.toString());
                     posicion++;
                 }
             }
@@ -124,7 +136,7 @@ public class ListaTareas
         for (Tarea tarea : listaDeTareas){
             if (tarea.getFechaVencimiento() != null){
                 if (tarea.getFechaVencimiento().isBefore(hoy)) {
-                    System.out.println(posicion + ". " + tarea.toString());
+                    System.out.println(tarea.toString());
                     posicion++;
                 }
             }
@@ -133,17 +145,112 @@ public class ListaTareas
     
     /**
      * Metodo que muestra la tarea con la más alta prioridad. 
-     * Si hay varias empatadas, debe mostrar todas
+     * Si hay varias tareas con la misma priodad, debe mostrar todas las tareas.
      */
-    public void verTareaMasPrioritaria(){
-        int posicion = 1;
-        int contadorPrioridad = 5;
-        for (Tarea tarea : listaDeTareas){
-            if (tarea.getPrioridad() == contadorPrioridad){
-                System.out.println(posicion + ". " + tarea.toString());
-                posicion++;                
-            }
-            contadorPrioridad--;
+    
+    /**public void verTareaMasPrioritaria()
+    {
+        int i = 0;
+        int buscarPrioridad = 5;
+        boolean localizado = false;
+        Tarea tareaLocal = new Tarea("");
+        while(buscarPrioridad >= 0 && !localizado){
+             while(i < listaDeTareas.size()){
+                 tareaLocal = listaDeTareas.get(i);
+                 if(tareaLocal.getPrioridad() == buscarPrioridad){
+                     System.out.println((i + 1) + " " + tareaLocal.toString());
+                     localizado = true;
+                 }
+                 i++;
+                 
+             }
+             i = 0;
+             buscarPrioridad--;
         }
+     }*/
+        
+    /**
+      * Muestra la tarea con mayor prioridad.
+      * En caso de que haya dos o mas tareas con la misma prioridad muestra solo la 
+      * última tarea.
+      */
+    public void verTareaMasPrioritaria2()
+    {
+        if(listaDeTareas.size() > 0){
+            int prioridadMaxima = listaDeTareas.get(0).getPrioridad();
+            Tarea tareaGuardada = listaDeTareas.get(0);
+            int index = 1;
+            int indexGuardado = index;
+            for(Tarea tarea : listaDeTareas){
+                if(tarea.getPrioridad() >= prioridadMaxima){
+                    tareaGuardada = tarea;
+                    prioridadMaxima = tarea.getPrioridad();
+                    indexGuardado = index;
+                }
+                index++;
+            }
+            System.out.println(indexGuardado + " " + tareaGuardada.toString());
+        }
+    }
+    
+    /**
+     * Metodo que nos permite localizar la tarea mas antigua que aun esta pendiente.
+     * En caso de que no haya tarea sin completar devuelve -1.
+     */
+    public int tareaMasViejaPendiente(){
+        int idEncontrado = -1;
+        int index = 0;
+        boolean buscando = true;
+        while (index < listaDeTareas.size() && buscando){
+            Tarea tareaActual = listaDeTareas.get(index);
+            if (!(tareaActual.mostrarFinalizada())){
+                idEncontrado = tareaActual.getId();
+                buscando = false;
+            }
+            index ++;
+        }
+        
+        return idEncontrado;
+    }
+    
+    /**
+     * Devuelve el numero de tareas sin terminar
+     */
+    public int numeroTareasSinTerminar(){
+        int tareasEncontradas = 0;
+        int index = 0;        
+        while (index < listaDeTareas.size()){
+            Tarea tareaActual = listaDeTareas.get(index);
+            if (!(tareaActual.mostrarFinalizada())){                
+                tareasEncontradas++;
+            }
+            index ++;
+        }
+        
+        return tareasEncontradas;
+    }
+    
+    /**
+     * Metodo que devuelve true si hay tareas duplicadas, y false si no las hay.
+     */
+    public boolean hayTareasDuplicadas(){
+        boolean tareasDuplicadas = false;
+        String tareaABuscar = "";
+        int cont1 = 0;
+        int cont2 = 0;
+        while (cont1 < listaDeTareas.size()){
+            tareaABuscar = listaDeTareas.get(cont1).mostrarTarea();
+            while(cont2 < listaDeTareas.size()){
+                String tareaAComparar = listaDeTareas.get(cont2).mostrarTarea();
+                if(tareaABuscar == tareaAComparar && cont1 != cont2){
+                    tareasDuplicadas = true;
+                }
+                cont2++;
+            }
+            cont1++;
+            cont2 = 0;
+        } 
+        
+        return tareasDuplicadas;
     }
 }

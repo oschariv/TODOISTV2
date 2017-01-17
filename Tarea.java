@@ -7,31 +7,46 @@ import java.time.LocalDate;
  */
 public class Tarea
 {
-    // instance variables
+    // Almacena la descripcion de la tarea.
     private String descripcion;
+    // Almacena si la tarea esta finalizada o no
     private boolean finalizada;
+    // Almacena la prioridad de una tarea.
     private int prioridad;
+    // Almacena la fecha de vencimiento de una tarea
     private LocalDate fechaVencimiento;
+    // Almacena el identificador de una tarea.
+    private int id;
 
     /**
      * Constructor para objetos de la clase Tarea
      */
-    public Tarea(String nombre)
+    public Tarea(int id, String nombre)
     {
+        this.id = id;
         descripcion = nombre;
         finalizada = false;
         prioridad = 0;
         fechaVencimiento = null;
     }
     
+    /**
+     * Devuelve la descripcion de la tarea.
+     */
     public String mostrarTarea(){
         return descripcion;
     }
     
+    /**
+     * Muestra si la tarea esta finalizada.
+     */
     public boolean mostrarFinalizada(){
         return finalizada;
     }
     
+    /**
+     * Marca la tarea como finalizada.
+     */
     public void marcarFinalizada(){
         finalizada = true;
     }
@@ -40,6 +55,10 @@ public class Tarea
      * Metodo que devuelve una cadena al invocarlo.
      */
     public String toString() {
+        String idDevolver = id + "";
+        if (id < 10) {
+            idDevolver = "0" + id;
+        }
         String textoADevolver = "";
         String prioridadADevolver = "";
         String fechaADevolver = "";
@@ -53,7 +72,7 @@ public class Tarea
         
             fechaADevolver = "[" + getDia + "/" + getMes + "/" + getAnio + "]";
         }
-        textoADevolver = textoADevolver + "(Prioridad " + prioridad + ")"
+        textoADevolver ="ID: " + idDevolver + textoADevolver + "(Prioridad " + prioridad + ")"
                         + descripcion + " " + fechaADevolver;
         return textoADevolver;
     }
@@ -75,11 +94,24 @@ public class Tarea
        fechaVencimiento = LocalDate.of(anio, mes, dia);
     }
     
+    /**
+     * Devuelve la fecha de vencicimiento.
+     */
     public LocalDate getFechaVencimiento(){
         return fechaVencimiento;
     }
     
+    /**
+     * Devuelve la prioridad.
+     */
     public int getPrioridad(){
         return prioridad;
+    }
+    
+    /**
+     * Devuelve el identificador de la tarea.
+     */
+    public int getId(){
+        return id;
     }
 }

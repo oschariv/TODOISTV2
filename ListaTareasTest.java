@@ -15,6 +15,10 @@ public class ListaTareasTest
 {
     private ListaTareas Tareas1;
 
+    
+
+    
+
     /**
      * Default constructor for test class ListaTareasTest
      */
@@ -34,7 +38,10 @@ public class ListaTareasTest
         Tareas1.addTarea("hacer la cama");
         Tareas1.addTarea("estudiar programacion");
         Tareas1.addTarea("comprar pan");
-        Tareas1.addTarea("hacer comida");
+        Tareas1.addTarea("preparar comida");
+        Tareas1.addTarea("jugar al lol");
+        Tareas1.cambiarPrioridad(2, 4);
+        Tareas1.mostrarTareasNumeradas();
     }
 
     /**
@@ -45,5 +52,13 @@ public class ListaTareasTest
     @After
     public void tearDown()
     {
+    }
+    
+    @Test
+    public void hayTareasDuplicadas()
+    {
+        assertEquals(false, Tareas1.hayTareasDuplicadas());
+        Tareas1.addTarea("estudiar programacion");
+        assertEquals(true, Tareas1.hayTareasDuplicadas());
     }
 }
