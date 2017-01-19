@@ -246,7 +246,7 @@ public class ListaTareas
             tareaABuscar = listaDeTareas.get(indiceLento).mostrarTarea();
             while(indiceRapido < listaDeTareas.size() && (!tareaDuplicada)){
                 String tareaAComparar = listaDeTareas.get(indiceRapido).mostrarTarea();
-                if(tareaABuscar == tareaAComparar){
+                if(tareaABuscar.equals(tareaAComparar)){
                     tareaDuplicada = true;
                 }
                 indiceRapido++;
