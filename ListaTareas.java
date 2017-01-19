@@ -232,25 +232,27 @@ public class ListaTareas
     
     /**
      * Metodo que devuelve true si hay tareas duplicadas, y false si no las hay.
+     * 
+     * indiceLento es el contador del bucle externo.
+     * indiceRapido es el contador del bucle interno.
+     * buscando cuando cambia a false para todo el bucle
      */
     public boolean hayTareasDuplicadas(){
-        boolean tareasDuplicadas = false;
+        boolean tareaDuplicada = false;
         String tareaABuscar = "";
-        int cont1 = 0;
-        int cont2 = 0;
-        while (cont1 < listaDeTareas.size()){
-            tareaABuscar = listaDeTareas.get(cont1).mostrarTarea();
-            while(cont2 < listaDeTareas.size()){
-                String tareaAComparar = listaDeTareas.get(cont2).mostrarTarea();
-                if(tareaABuscar == tareaAComparar && cont1 != cont2){
-                    tareasDuplicadas = true;
+        int indiceLento = 0;
+        while (indiceLento < listaDeTareas.size() && (!tareaDuplicada)){
+            int indiceRapido = indiceLento + 1;
+            tareaABuscar = listaDeTareas.get(indiceLento).mostrarTarea();
+            while(indiceRapido < listaDeTareas.size() && (!tareaDuplicada)){
+                String tareaAComparar = listaDeTareas.get(indiceRapido).mostrarTarea();
+                if(tareaABuscar == tareaAComparar){
+                    tareaDuplicada = true;
                 }
-                cont2++;
+                indiceRapido++;
             }
-            cont1++;
-            cont2 = 0;
+            indiceLento++;
         } 
-        
-        return tareasDuplicadas;
+        return tareaDuplicada;
     }
 }
